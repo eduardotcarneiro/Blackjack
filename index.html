@@ -46,7 +46,6 @@ h1 {
 
 <p id="somacomp"></p>
 
-
 <h2>Suas Cartas:</h2>
 <p id="cartauser"></p>
 
@@ -100,10 +99,11 @@ function finalizar () {
 
 function refresh() {
   
+  window.location.reload(true);
   soma[0] = 0;
   soma[1] = 0;
-  window.location.reload(true);
-  
+  baralho();
+
 }
 
 //O baralho agora é um vetor com os nomes das cartas.
@@ -240,6 +240,7 @@ if (soma[1] >= 21 || fim === true) {
   finalizar();
   
 }
+
 
 /*
 
