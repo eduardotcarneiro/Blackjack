@@ -52,11 +52,7 @@ h1 {
 
 <p id="somauser"></p>
 
-
-
-
 <p id="cartauser"></p>
-
 
 <p id="blackjack"></p>
 
@@ -109,7 +105,6 @@ function refresh() {
   soma[1] = 0;
   baralho();
 
-  
 }
 
 //O baralho agora é um vetor com os nomes das cartas.
@@ -122,7 +117,6 @@ function baralho () {
     //document.getElementById("cartauser").innerHTML += "<img src = '" + cartas[i] + ">";
   }
 }
-
 
 function maisCarta(usuario) {
   
@@ -228,8 +222,6 @@ function blackjack(somauser, somacomp) {
 //document.getElementById("cartas").innerHTML = cartas;
 baralho();
   
-//var compcarta =  document.getElementById('cartacomp');
-  
 document.getElementById("cartacomp").innerHTML += "<img src = ./Baralho/" + cartear(0) + "> ";
 document.getElementById("somacomp").innerHTML = "Total de pontos do Currier: " + soma[0];
 
@@ -246,71 +238,6 @@ if (soma[1] >= 21 || fim === true) {
   finalizar();
   
 }
-
-
-/*
-
-<img id = "cartauser2" src = "background.png" width = "55px" height = "76px"> <img id = "cartauser3" src = "background.png" width = "55px" height = "76px"> <img id = "cartauser4" src = "background.png" width = "55px" height = "76px"> <img id = "cartauser5" src = "background.png" width = "55px" height = "76px">      <img id = "cartacomp2" src = "background.png" width = "55px" height = "76px"> <img id = "cartacomp3" src = "background.png" width = "55px" height = "76px"> <img id = "cartacomp4" src = "background.png" width = "55px" height = "76px"> <img id = "cartacomp5" src = "background.png" width = "55px" height = "76px">
-
-
-var userChoice = prompt("Do you choose rock, paper or scissors?");
-
-if (userChoice != "rock" && userChoice != "paper" && userChoice != "scissors") {
-  //console.log("Inválido");
-  document.getElementById("demo1").innerHTML = "Invalid";
-}
-
-var computerChoice = Math.random();
-
-if (computerChoice > 0 && computerChoice < 0.34) {
-	computerChoice = "rock";
-} else if(computerChoice >= 0.34 && computerChoice < 0.67 ) {
-	computerChoice = "paper";
-} else {
-	computerChoice = "scissors";
-}
-
-//console.log("Computer: " + computerChoice);
-document.getElementById("demo2").innerHTML = "Computer: " + computerChoice;
-
-var compare = function (choice1, choice2) {
-    
-  if ( choice1 === choice2 ) {
-    return "The result is a tie!";
-  }
-  
-  else if ( choice1 === "rock" ) {
-      
-    if (choice2 === "scissors") {
-        return "Rock wins";
-    } else {
-        return "Paper wins";
-    }
-  }
-  
-  else if ( choice1 === "paper" ) {
-      
-    if (choice2 === "rock") {
-        return "Paper wins";
-    } else {
-        return "Scissors wins";
-    }
-  }
-  
-  else if ( choice1 === "scissors" ) {
-      
-    if (choice2 === "rock") {
-        return "Rock wins";
-    } else {
-        return "Scissors wins";
-    }
-  }
-}
-
-//console.log(compare(userChoice, computerChoice));
-document.getElementById("demo3").innerHTML = compare (userChoice, computerChoice);
-
-//<img src = "pic_mountain.jpg" alt = "Mountain View" style = "width:120px;height:228px;">*/
 
 </script>
 </div>
