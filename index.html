@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<h1>Blackjack</h1>
+</head>
+<style>
+.button {
+    background-color: #ffffff;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+.center {
+    margin: auto;
+    width: 85%;
+    border: 2px solid white;
+    padding: 10px;
+    text-align: center;
+}
+
+body {
+  background-color: #008000;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+    color: white;
+}
+</style>
+
+<body>
+
+<div class="center">
+
+<h2>Cartas do Currier:</h2>
+<p id="cartacomp"></p>
+
+<p id="somacomp"></p>
+
+
+<h2>Suas Cartas:</h2>
+<p id="cartauser"></p>
+
+<p id="somauser"></p>
+
+
+
+
+<p id="cartauser"></p>
+
+
+<p id="blackjack"></p>
+
+<button id="maiscartas" onclick="maisCarta(1)">Mais Uma Carta!</button>
+<button id="finalizar" onclick="finalizar()">Finalizar Jogada!</button>
+<p id="novamente"></p>
+<script>
+
+var cartas = Array(40);
+var comp = 0;
+var user = 1;
+var jogo = Array(2);
+var soma = Array(2);
+
+soma[0] = 0;
+soma[1] = 0;
+
+var fim = 0;
+
+function finalizar () {
+  
+    document.getElementById("maiscartas").disabled = true;
+    document.getElementById("finalizar").disabled = true;
+    
+    var cartascomp = true;
+     
+    while (cartascomp === true) {
+      
+      if (soma[0] > 15) {
+        
+        cartascomp = false;
+        
+      } else {
+        
+        document.getElementById("cartacomp").innerHTML += "<img src = ./Baralho/" + cartear(0) + "> ";
+        document.getElementById("somacomp").innerHTML = "Total de pontos do Currier: " + soma[0];
+      }
+      
+    }
+    
+    document.getElementById("blackjack").innerHTML = "Resultado: " + blackjack(soma[1], soma[0]);
+    
+    document.getElementById("novamente").innerHTML = '<button id="novamente" onclick="refresh()">Jogar Novamente?</button>';
+}
+
+function refresh() {
+  
+  window.location.reload(true);
+  soma[0] = 0;
+  soma[1] = 0;
+  baralho();
+
+  
+}
+
+//O baralho agora é um vetor com os nomes das cartas.
+
+function baralho () {
+  
+  for(var i = 0; i < 40; i++) {
+  
+    cartas[i] = i + ".png";
+    //document.getElementById("cartauser").innerHTML += "<img src = '" + cartas[i] + ">";
+  }
+}
+
+
+function maisCarta(usuario) {
+  
+  var novacarta = cartear(1);
+  
+  document.getElementById("somauser").innerHTML = "Seu total de pontos é: " + soma[1];
+  
+  document.getElementById("cartauser").innerHTML += "<img src = ./Baralho/" + novacarta + "> ";
+  
+  if (soma[1] >= 21) {
+    
+   finalizar();
+    
+  }
+  
+}
+
+//A função Cartear faz a soma dos valores das cartas e retorna o nome do arquivo da carta.
+
+function cartear(usuario) {
+  
+  var i = Math.floor(Math.random() * 40);
+  
+  while (cartas[i] === 0) {
+    
+    var i = Math.floor(Math.random() * 40);
+  }
+    var carta = cartas[i]
+    
+    if (i+1===8 || i+1===18 || i+1===28 || i+1===38) {
+      
+        soma[usuario] = soma[usuario] + 10;;
+        
+    } else if (i+1===9 || i+1===19 || i+1===29 || i+1===39) {
+      
+      soma[usuario] = soma[usuario] + 10;;
+      
+    } else if (i+1===10 || i+1===20 || i+1===30 || i+1===40) {
+      
+      soma[usuario] = soma[usuario] + 10;;
+      
+    } else {
+      
+      if (i > 10 && i <20){
+        
+        soma[usuario] = soma[usuario] + i-9;
+        
+      } else if (i > 20 && i <30){
+        
+        soma[usuario] = soma[usuario] +  i-19
+        
+      } else if (i > 30 && i <40){
+        
+        soma[usuario] = soma[usuario] + i-29;
+        
+      } else {
+        
+        soma[usuario] = soma[usuario] + i+1;
+        
+      }
+    }
+    
+    cartas[i] = 0;
+
+    return carta;
+    
+}
+
+function blackjack(somauser, somacomp) {
+    
+  
+  if(somauser > 21) {
+    
+    return "Você estourou a mão.";
+    
+  } else if ( somauser === somacomp) {
+    
+    return "Empate!";
+    
+  } else if (somauser === 21) {
+    
+    return "Blackjack! Você ganhou!";
+    
+  } else if ( somauser === 21  ) {
+    
+    return "O Currier faz Blackjack!";
+    
+  } else if (somacomp > 21) {
+    
+    return "O Currier estourou a mão.";
+    
+  } else if(somauser > somacomp) {
+    
+    return "Você ganhou!";
+    
+  } else {
+    
+    return "Você perdeu!";
+    
+  }
+}
+
+//document.getElementById("cartas").innerHTML = cartas;
+baralho();
+  
+//var compcarta =  document.getElementById('cartacomp');
+  
+document.getElementById("cartacomp").innerHTML += "<img src = ./Baralho/" + cartear(0) + "> ";
+document.getElementById("somacomp").innerHTML = "Total de pontos do Currier: " + soma[0];
+
+document.getElementById("cartauser").innerHTML += "<img src = ./Baralho/" + cartear(1) + "> ";
+document.getElementById("cartauser").innerHTML += "<img src = ./Baralho/" + cartear(1) + "> ";
+
+document.getElementById("somauser").innerHTML = "Seu total de pontos é: " + soma[1];
+
+if (soma[1] >= 21 || fim === true) {
+  
+  document.getElementById("maiscartas").disabled = true;
+  document.getElementById("finalizar").disabled = true;
+  
+  finalizar();
+  
+}
+
+
+/*
+
+<img id = "cartauser2" src = "background.png" width = "55px" height = "76px"> <img id = "cartauser3" src = "background.png" width = "55px" height = "76px"> <img id = "cartauser4" src = "background.png" width = "55px" height = "76px"> <img id = "cartauser5" src = "background.png" width = "55px" height = "76px">      <img id = "cartacomp2" src = "background.png" width = "55px" height = "76px"> <img id = "cartacomp3" src = "background.png" width = "55px" height = "76px"> <img id = "cartacomp4" src = "background.png" width = "55px" height = "76px"> <img id = "cartacomp5" src = "background.png" width = "55px" height = "76px">
+
+
+var userChoice = prompt("Do you choose rock, paper or scissors?");
+
+if (userChoice != "rock" && userChoice != "paper" && userChoice != "scissors") {
+  //console.log("Inválido");
+  document.getElementById("demo1").innerHTML = "Invalid";
+}
+
+var computerChoice = Math.random();
+
+if (computerChoice > 0 && computerChoice < 0.34) {
+	computerChoice = "rock";
+} else if(computerChoice >= 0.34 && computerChoice < 0.67 ) {
+	computerChoice = "paper";
+} else {
+	computerChoice = "scissors";
+}
+
+//console.log("Computer: " + computerChoice);
+document.getElementById("demo2").innerHTML = "Computer: " + computerChoice;
+
+var compare = function (choice1, choice2) {
+    
+  if ( choice1 === choice2 ) {
+    return "The result is a tie!";
+  }
+  
+  else if ( choice1 === "rock" ) {
+      
+    if (choice2 === "scissors") {
+        return "Rock wins";
+    } else {
+        return "Paper wins";
+    }
+  }
+  
+  else if ( choice1 === "paper" ) {
+      
+    if (choice2 === "rock") {
+        return "Paper wins";
+    } else {
+        return "Scissors wins";
+    }
+  }
+  
+  else if ( choice1 === "scissors" ) {
+      
+    if (choice2 === "rock") {
+        return "Rock wins";
+    } else {
+        return "Scissors wins";
+    }
+  }
+}
+
+//console.log(compare(userChoice, computerChoice));
+document.getElementById("demo3").innerHTML = compare (userChoice, computerChoice);
+
+//<img src = "pic_mountain.jpg" alt = "Mountain View" style = "width:120px;height:228px;">*/
+
+</script>
+</div>
+</body>
+</html>
